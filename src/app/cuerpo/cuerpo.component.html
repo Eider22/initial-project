@@ -1,0 +1,148 @@
+<form #myForm="ngForm" (ngSubmit)="submitForm()">
+  <table border class="cuerpo">
+    <tr>
+      <td valign="top">
+        <table border class="formulario">
+          <tr>
+            <td align="center" colspan="2">Datos Estudiante</td>
+          </tr>
+          <tr>
+            <td>Tipo documento</td>
+            <td>
+              <!-- <div id="contenedor-td"></div> -->
+              <select
+                name="tipoDocumento"
+                id="tipoDocumento"
+                [(ngModel)]="estudianteModel.tipoDocumento.value"
+              >
+                <option value="0">Seleccione</option>
+                <option
+                  *ngFor="let item of tiposDocumentos"
+                  value="{{ item.value }}"
+                >
+                  {{ item.nombre }}
+                </option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td>Documento</td>
+            <td>
+              <input
+                name="documento"
+                [(ngModel)]="estudianteModel.documento"
+                type="text"
+                id="documento"
+                required
+              />
+              <div *ngIf="myForm.controls['documento'].errors">
+                (*) El campo es obligatorio
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>Nombres</td>
+            <td>
+              <input
+                name="nombres"
+                [(ngModel)]="estudianteModel.nombres"
+                type="text"
+                id="nombres"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Edad</td>
+            <td>
+              <input
+                name="edad"
+                [(ngModel)]="estudianteModel.edad"
+                type="text"
+                id="edad"
+                required
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>Disabled</td>
+            <td>
+              <input
+                name="disabled"
+                [disabled]="'disabled'"
+                type="text"
+                readonly
+              />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" align="center">
+              <input
+                id="register-btn"
+                type="submit"
+                [disabled]="!myForm.valid"
+                value="Registrar"
+              />
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td valign="top">
+        <table border class="formulario">
+          <tr>
+            <td align="center" colspan="4" >Lista Estudiantes</td>
+          </tr>
+          <table border class="table-details">
+            <thead>
+              <tr>
+                <th>Tipo documento</th>
+                <th>Documento</th>
+                <th>Nombres</th>
+                <th>Edad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let estudiante of listaEstudiantes">
+                <td>
+                  {{ estudiante.tipoDocumento.alias }}
+                </td>
+                <td>{{ estudiante.documento }}</td>
+                <td>{{ estudiante.nombres }}</td>
+                <td>{{ estudiante.edad }}</td>
+              </tr>
+            </tbody>
+            <!-- <tbody>
+              <tr *ngFor="let estudiante of listaEstudiantes">
+                <td [ngSwitch]="estudiante.tipoDocumento">
+                  <ng-container *ngSwitchCase="1">CC</ng-container>
+                  <ng-container *ngSwitchCase="2"
+                    >Cédula extranjeria</ng-container
+                  >
+                  <ng-container *ngSwitchCase="3"
+                    >Tarjeta identidad</ng-container
+                  >
+                </td>
+                <td>{{ estudiante.documento }}</td>
+                <td>{{ estudiante.nombres }}</td>
+                <td>{{ estudiante.edad }}</td>
+              </tr>
+            </tbody> -->
+          </table>
+        </table>
+      </td>
+    </tr>
+  </table>
+</form>
+{{ estudianteModel.tipoDocumento.value }}
+<br />
+{{ estudianteModel.documento }}
+<br />
+{{ estudianteModel.nombres }}
+<br />
+{{ estudianteModel.edad }}
+
+
+
+<div>
+  <ngx-datatable [rows]="listaEstudiantes" [columns]="columns"> </ngx-datatable>
+</div>
