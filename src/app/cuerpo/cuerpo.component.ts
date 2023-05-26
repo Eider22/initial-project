@@ -1,7 +1,10 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Estudiante } from "src/models/estuadiante";
 import { TipoDocumento } from "src/models/tipoDocumento";
 
+export interface IEstudentRegisterForm {
+  typeDocumentSelected: string;
+}
 @Component({
   selector: "app-cuerpo",
   templateUrl: "./cuerpo.component.html",
@@ -10,46 +13,66 @@ import { TipoDocumento } from "src/models/tipoDocumento";
 export class CuerpoComponent implements OnInit {
   constructor() {}
 
+  estudianteModel: Estudiante = new Estudiante();
+  /**Esta data probablemente será consumida de una api */
+  listaEstudiantes: Array<Estudiante> = [];
+  /**Esta data probablemente será consumida de una api */
+  tiposDocumentos: Array<TipoDocumento> = [];
+
+  formModels: IEstudentRegisterForm = {
+    typeDocumentSelected: "0",
+  };
+
   columns = [
-    { prop: "tipoDocumento.nombre", name:"Tipo de documento"},
+    { prop: "tipoDocumento.nombre", name: "Tipo de documento" },
     { prop: "documento" },
     { prop: "nombres" },
     { prop: "edad" },
   ];
-  estudianteModel: Estudiante = new Estudiante();
-  listaEstudiantes: Array<Estudiante> = [];
 
-  tiposDocumentos: Array<TipoDocumento> = [
-    new TipoDocumento(1, "Cedula de ciudadania", "CC"),
-    new TipoDocumento(2, "Cedula Extranjeria", "CE"),
-    new TipoDocumento(3, "Tarjeta Identidad", "TI"),
-  ];
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getData();
+  }
 
   submitForm() {
     this.registrarEstudiante();
   }
 
   registrarEstudiante() {
-    if (this.estudianteModel.tipoDocumento.value == 0) {
+    const tipoDocumentoSeleccionado: TipoDocumento | undefined =
+      this.tiposDocumentos.find(
+        (documento) =>
+          documento.id.toString() ===
+          this.formModels.typeDocumentSelected.toString()
+      );
+
+    if (!tipoDocumentoSeleccionado) {
+      /**TODO
+       * Retornar información para mostrar error al cliente →  'Seleccione un tipo de documento'*/
+      alert("Seleccione un tipo de documento");
       return;
     }
 
-    let tipoDoc = new TipoDocumento(1, "Cedula de ciudadania", "CC");
+    this.estudianteModel.tipoDocumento = tipoDocumentoSeleccionado;
+    this.updateTable();
+    this.cleanForm();
+  }
 
-    if (this.estudianteModel.tipoDocumento.value == 2) {
-      tipoDoc = new TipoDocumento(2, "Cedula Extranjeria", "CE");
-    }
+  getData() {
+    this.tiposDocumentos = [
+      new TipoDocumento("1", "Cedula de ciudadania", "CC"),
+      new TipoDocumento("2", "Cedula Extranjeria", "CE"),
+      new TipoDocumento("3", "Tarjeta Identidad", "TI"),
+    ];
+  }
 
-    if (this.estudianteModel.tipoDocumento.value == 3) {
-      tipoDoc = new TipoDocumento(3, "Tarjeta Identidad", "TI");
-    }
-
-    this.estudianteModel.tipoDocumento = tipoDoc;
-
+  updateTable() {
     this.listaEstudiantes.push(this.estudianteModel);
-    this.listaEstudiantes = [...this.listaEstudiantes]
+    this.listaEstudiantes = [...this.listaEstudiantes];
+  }
+
+  cleanForm() {
     this.estudianteModel = new Estudiante();
+    this.formModels.typeDocumentSelected = "0";
   }
 }

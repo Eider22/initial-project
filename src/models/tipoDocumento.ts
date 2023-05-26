@@ -1,9 +1,9 @@
 export class TipoDocumento {
-  value: number;
+  id: string;
   nombre: String;
   alias: String;
-  constructor(value:number, nombre:string, alias:string) {
-    this.value = value;
+  constructor(id:string, nombre:string, alias:string) {
+    this.id = id;
     this.nombre = nombre;
     this.alias = alias;
   }

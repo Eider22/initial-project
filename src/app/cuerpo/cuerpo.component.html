@@ -9,16 +9,15 @@
           <tr>
             <td>Tipo documento</td>
             <td>
-              <!-- <div id="contenedor-td"></div> -->
               <select
                 name="tipoDocumento"
                 id="tipoDocumento"
-                [(ngModel)]="estudianteModel.tipoDocumento.value"
+                [(ngModel)]="formModels.typeDocumentSelected"
               >
                 <option value="0">Seleccione</option>
                 <option
                   *ngFor="let item of tiposDocumentos"
-                  value="{{ item.value }}"
+                  value="{{ item.id }}"
                 >
                   {{ item.nombre }}
                 </option>
@@ -88,9 +87,29 @@
         </table>
       </td>
       <td valign="top">
-        <table border class="formulario">
+        <div>
+          <ngx-datatable [rows]="listaEstudiantes" [columns]="columns">
+          </ngx-datatable>
+        </div>
+      </td>
+    </tr>
+  </table>
+</form>
+{{ formModels.typeDocumentSelected }}
+<br />
+{{ estudianteModel.tipoDocumento?.id ? estudianteModel.tipoDocumento?.id : "---" }}
+<br />
+{{ estudianteModel.tipoDocumento ? estudianteModel.tipoDocumento :"---"}}
+<br />
+{{ estudianteModel.documento }}
+<br />
+{{ estudianteModel.nombres }}
+<br />
+{{ estudianteModel.edad }}
+
+<!-- <table border class="formulario">
           <tr>
-            <td align="center" colspan="4" >Lista Estudiantes</td>
+            <td align="center" colspan="4">Lista Estudiantes</td>
           </tr>
           <table border class="table-details">
             <thead>
@@ -111,38 +130,5 @@
                 <td>{{ estudiante.edad }}</td>
               </tr>
             </tbody>
-            <!-- <tbody>
-              <tr *ngFor="let estudiante of listaEstudiantes">
-                <td [ngSwitch]="estudiante.tipoDocumento">
-                  <ng-container *ngSwitchCase="1">CC</ng-container>
-                  <ng-container *ngSwitchCase="2"
-                    >Cédula extranjeria</ng-container
-                  >
-                  <ng-container *ngSwitchCase="3"
-                    >Tarjeta identidad</ng-container
-                  >
-                </td>
-                <td>{{ estudiante.documento }}</td>
-                <td>{{ estudiante.nombres }}</td>
-                <td>{{ estudiante.edad }}</td>
-              </tr>
-            </tbody> -->
           </table>
-        </table>
-      </td>
-    </tr>
-  </table>
-</form>
-{{ estudianteModel.tipoDocumento.value }}
-<br />
-{{ estudianteModel.documento }}
-<br />
-{{ estudianteModel.nombres }}
-<br />
-{{ estudianteModel.edad }}
-
-
-
-<div>
-  <ngx-datatable [rows]="listaEstudiantes" [columns]="columns"> </ngx-datatable>
-</div>
+        </table> -->

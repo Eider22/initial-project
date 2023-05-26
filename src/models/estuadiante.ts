@@ -1,15 +1,20 @@
 import { TipoDocumento } from "./tipoDocumento";
 
 export class Estudiante {
-  tipoDocumento: TipoDocumento;
-  documento: string;
-  nombres: string;
-  edad: string;
+  tipoDocumento: TipoDocumento | undefined;
+  documento: string | undefined;
+  nombres: string | undefined;
+  edad: number | undefined;
 
-  constructor() {
-    this.tipoDocumento = new TipoDocumento(0, '', '');
-    this.documento = "";
-    this.nombres = "";
-    this.edad = "";
+  constructor(
+    tipoDocumento?: TipoDocumento,
+    documento?: string,
+    nombres?: string,
+    edad?: number
+  ) {
+    this.tipoDocumento = tipoDocumento;
+    this.documento = documento;
+    this.nombres = nombres;
+    this.edad = edad;
   }
 }
