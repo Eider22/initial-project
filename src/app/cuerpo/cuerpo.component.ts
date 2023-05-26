@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Estudiante } from "src/models/estuadiante";
 import { TipoDocumento } from "src/models/tipoDocumento";
 
@@ -12,7 +12,7 @@ export interface IEstudentRegisterForm {
 })
 export class CuerpoComponent implements OnInit {
   constructor() {}
-
+ 
   estudianteModel: Estudiante = new Estudiante();
   /**Esta data probablemente será consumida de una api */
   listaEstudiantes: Array<Estudiante> = [];
@@ -29,6 +29,8 @@ export class CuerpoComponent implements OnInit {
     { prop: "nombres" },
     { prop: "edad" },
   ];
+
+  messages = {emptyMessage: 'No hay datos para mostrar'};
 
   ngOnInit(): void {
     this.getData();
