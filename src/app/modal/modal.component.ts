@@ -39,5 +39,13 @@ export class ModalComponent implements AfterViewInit {
     const myForm: NgForm = this.registerFormComponent.myForm;
     console.log("myForm:", myForm);
   }
-  
+
+  testHideBsModal() {
+    console.log("test bootstrap hide.bs.modal event");
+  }
+
+  testShowBsModal() {
+    console.log("test bootstrap show.bs.modal event");
+  }
+
 }

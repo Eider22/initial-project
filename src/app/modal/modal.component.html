@@ -10,6 +10,8 @@
 
 <!-- Modal -->
 <div
+  (show.bs.modal)="testShowBsModal()"
+  (hide.bs.modal)="testHideBsModal()"
   class="modal fade"
   id="registerModal"
   tabindex="-1"
