@@ -17,7 +17,6 @@ export class StudentPageComponent {
   ];
 
   agregarEstudiante(estudiante: Estudiante){
-    console.log(estudiante)
     this.listaEstudiantes.push(estudiante);
     this.listaEstudiantes = [...this.listaEstudiantes];
   }
