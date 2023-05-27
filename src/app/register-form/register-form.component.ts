@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { Estudiante } from "src/models/estuadiante";
 import { TipoDocumento } from "src/models/tipoDocumento";
 
@@ -13,6 +14,7 @@ export interface IEstudentRegisterForm {
 })
 export class RegisterFormComponent {
   constructor() {}
+  @ViewChild("myForm") myForm!: NgForm;
 
   estudianteModel: Estudiante = new Estudiante();
   /**Esta data probablemente será consumida de una api */
@@ -32,6 +34,7 @@ export class RegisterFormComponent {
 
   submitForm() {
     this.registrarEstudiante();
+    this.myForm.controls["documento"].markAsUntouched();
   }
 
   registrarEstudiante() {
@@ -75,5 +78,6 @@ export class RegisterFormComponent {
   cleanForm() {
     this.estudianteModel = new Estudiante();
     this.formModels.typeDocumentSelected = "0";
+    this.myForm.controls["documento"].markAsUntouched();
   }
 }

@@ -1,26 +1,42 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
-import { Estudiante } from 'src/models/estuadiante';
-import { RegisterFormComponent } from '../register-form/register-form.component';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  ContentChild,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { Estudiante } from "src/models/estuadiante";
+import { RegisterFormComponent } from "../register-form/register-form.component";
+import { NgForm } from "@angular/forms";
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.css']
+  selector: "app-modal",
+  templateUrl: "./modal.component.html",
+  styleUrls: ["./modal.component.css"],
 })
-export class ModalComponent {
+export class ModalComponent implements AfterViewInit {
   @Output()
-  estudianteRegistrado: EventEmitter<Estudiante> = new EventEmitter<Estudiante>();
-  @ViewChild(RegisterFormComponent) registerFormComponent: RegisterFormComponent = new RegisterFormComponent();
+  estudianteRegistrado: EventEmitter<Estudiante> =
+    new EventEmitter<Estudiante>();
+  @ContentChild(RegisterFormComponent)
+  registerFormComponent: RegisterFormComponent = new RegisterFormComponent();
+  @ViewChild(RegisterFormComponent)
+  registerFormComponentView: RegisterFormComponent =
+    new RegisterFormComponent();
 
-  subirEstudianteRegistrado(estudiante:Estudiante){
-    this.estudianteRegistrado.emit(estudiante);
-  }
-
-  save(){
+  save() {
     this.registerFormComponent.registrarEstudiante();
   }
 
-  clean(){
+  clean() {
     this.registerFormComponent.cleanForm();
+  }
+
+  ngAfterViewInit() {
+      const myForm: NgForm = this.registerFormComponent.myForm;
+      console.log('myForm:', myForm);
   }
 }

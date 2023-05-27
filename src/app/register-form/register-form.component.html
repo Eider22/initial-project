@@ -21,7 +21,7 @@
       class="form-control"
       aria-describedby="documentDescription"
     />
-    <div *ngIf="myForm.controls['documento'].errors">
+    <div *ngIf="myForm.controls['documento'].touched && myForm.controls['documento'].errors">
       (*) El campo es obligatorio
     </div>
   </div>

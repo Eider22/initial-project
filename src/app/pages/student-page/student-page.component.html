@@ -1,2 +1,6 @@
-<app-modal (estudianteRegistrado)="agregarEstudiante($event)"></app-modal>
+<app-modal>
+  <app-register-form
+    (estudianteRegistrado)="agregarEstudiante($event)"
+  ></app-register-form>
+</app-modal>
 <app-table [rows]="listaEstudiantes" [inColumns]="columns"></app-table>

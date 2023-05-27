@@ -30,7 +30,8 @@
         ></button>
       </div>
       <div class="modal-body">
-        <app-register-form (estudianteRegistrado)="subirEstudianteRegistrado($event)"></app-register-form>        
+        <!-- Content projection       -->
+        <ng-content></ng-content>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" (click)="clean()">
@@ -39,9 +40,10 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <!-- TODO:Hacer que este botón tenga la fancionalidad de registrar -->
         <!-- TODO: Hacer que el botón se mantenga disabled hasta que el formulario sea valido -->
-        <button type="button" class="btn btn-primary" (click)="save()">Registrar</button>
+        <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!registerFormComponent?.myForm?.valid">
+          Registrar
+        </button>
       </div>
     </div>
   </div>
