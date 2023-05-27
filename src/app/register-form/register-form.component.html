@@ -1,55 +1,68 @@
 <form #myForm="ngForm" (ngSubmit)="submitForm()">
-  <select
-    name="tipoDocumento"
-    id="tipoDocumento"
-    [(ngModel)]="formModels.typeDocumentSelected"
-    class="form-select"
-  >
-    <option value="0">Seleccione</option>
-    <option *ngFor="let item of tiposDocumentos" value="{{ item.id }}">
-      {{ item.nombre }}
-    </option>
-  </select>
-  <div class="mb-3">
-    <label for="documento" class="form-label">Documento</label>
-    <input
-      name="documento"
-      id="documento"
-      required
-      [(ngModel)]="estudianteModel.documento"
-      type="text"
-      class="form-control"
-      aria-describedby="documentDescription"
-    />
-    <div *ngIf="myForm.controls['documento'].touched && myForm.controls['documento'].errors">
-      (*) El campo es obligatorio
+  <div class="p-3">
+    <div class="row">
+      <div class="mb-3 mb-md-5 p-1 col-md-6">
+        <label for="tipoDocumento" class="form-label">Tipo documento</label>
+        <select
+          name="tipoDocumento"
+          id="tipoDocumento"
+          [(ngModel)]="formModels.typeDocumentSelected"
+          class="form-select"
+        >
+          <option value="0">Seleccione</option>
+          <option *ngFor="let item of tiposDocumentos" value="{{ item.id }}">
+            {{ item.nombre }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3 p-1 col-md-6">
+        <label for="documento" class="form-label">Documento</label>
+        <input
+          name="documento"
+          id="documento"
+          required
+          [(ngModel)]="estudianteModel.documento"
+          type="text"
+          class="form-control"
+          aria-describedby="documentDescription"
+        />
+        <div
+          *ngIf="
+            myForm.controls['documento'].touched &&
+            myForm.controls['documento'].errors
+          "
+        >
+          (*) El campo es obligatorio
+        </div>
+      </div>
+
+      <div class="mb-3 p-1">
+        <label for="nombres" class="form-label">Nombres</label>
+        <input
+          name="nombres"
+          id="nombres"
+          required
+          [(ngModel)]="estudianteModel.nombres"
+          type="text"
+          class="form-control"
+        />
+      </div>
+    </div>
+
+    <div class="mb-3 row">
+      <label for="edad" class="col-md-2 col-form-label"
+        >Edad</label
+      >
+      <div class="col-md-4">
+        <input
+          name="edad"
+          id="edad"
+          required
+          [(ngModel)]="estudianteModel.edad"
+          type="number"
+          class="form-control"
+        />
+      </div>
     </div>
   </div>
-  <div class="mb-3">
-    <label for="nombres" class="form-label">Nombres</label>
-    <input
-      name="nombres"
-      id="nombres"
-      required
-      [(ngModel)]="estudianteModel.nombres"
-      type="text"
-      class="form-control"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="nombres" class="form-label">Edad</label>
-    <input
-      name="edad"
-      id="edad"
-      required
-      [(ngModel)]="estudianteModel.edad"
-      type="number"
-      class="form-control"
-    />
-  </div>
-  <!-- <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">
-    Registrar
-  </button> -->
 </form>
-<!-- <ngx-datatable [messages]="messages" [rows]="listaEstudiantes" [columns]="columns">
-</ngx-datatable> -->

@@ -41,7 +41,12 @@
           Cancelar
         </button>
         <!-- TODO: Hacer que el botón se mantenga disabled hasta que el formulario sea valido -->
-        <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!registerFormComponent?.myForm?.valid">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="save()"
+          [disabled]="!registerFormComponent?.myForm?.valid"
+        >
           Registrar
         </button>
       </div>

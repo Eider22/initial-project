@@ -36,7 +36,8 @@ export class ModalComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-      const myForm: NgForm = this.registerFormComponent.myForm;
-      console.log('myForm:', myForm);
+    const myForm: NgForm = this.registerFormComponent.myForm;
+    console.log("myForm:", myForm);
   }
+  
 }
