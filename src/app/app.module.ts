@@ -9,6 +9,10 @@ import { FooterComponent } from './footer/footer.component';
 import { CuerpoComponent } from './cuerpo/cuerpo.component';
 import { FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ModalComponent } from './modal/modal.component';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { TableComponent } from './table/table.component';
+import { StudentPageComponent } from './pages/student-page/student-page.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,11 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     FormularioComponent,
     EncabezadoComponent,
     FooterComponent,
-    CuerpoComponent
+    CuerpoComponent,
+    ModalComponent,
+    RegisterFormComponent,
+    TableComponent,
+    StudentPageComponent
   ],
   imports: [
     BrowserModule,
