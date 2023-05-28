@@ -16,15 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       },
       false
-      );
-      
-      buttonCleanForm.addEventListener(
-        "click",
-        (event) => {
-          Array.from(forms).forEach((form) => {
-            event.stopPropagation();
-            form.classList.remove("was-validated");
-          });
+    );
+
+    buttonCleanForm.addEventListener(
+      "click",
+      (event) => {
+        Array.from(forms).forEach((form) => {
+          event.stopPropagation();
+          form.classList.remove("was-validated");
+        });
       },
       false
     );
