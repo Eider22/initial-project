@@ -25,7 +25,7 @@ export class ModalComponent implements AfterViewInit {
   registerFormComponent: RegisterFormComponent = new RegisterFormComponent();
 
   save() {
-    this.registerFormComponent.registrarEstudiante();
+    this.registerFormComponent.submitForm();
   }
 
   clean() {

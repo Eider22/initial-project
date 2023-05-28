@@ -40,8 +40,10 @@ export class RegisterFormComponent {
   }
 
   submitForm() {
+    console.log("this.myForm")
+    console.log(this.myForm)
     this.registrarEstudiante();
-    this.myForm.controls["documento"].markAsUntouched();
+    // this.myForm.controls["documento"].markAsUntouched();
   }
 
   registrarEstudiante() {
@@ -91,7 +93,7 @@ export class RegisterFormComponent {
   cleanForm() {
     this.estudianteModel = new Estudiante();
     this.formModels.typeDocumentSelected = "0";
-    this.myForm.controls["documento"].markAsUntouched();
+    // this.myForm.controls["documento"].markAsUntouched();
   }
 
   changeSelect() {
