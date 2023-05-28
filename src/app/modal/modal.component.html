@@ -36,7 +36,7 @@
         <ng-content></ng-content>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="clean()">
+        <button id="clean-form-button" type="button" class="btn btn-secondary" (click)="clean()">
           Limpiar
         </button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -44,10 +44,10 @@
         </button>
         <!-- TODO: Hacer que el botón se mantenga disabled hasta que el formulario sea valido -->
         <button
+          id="submit-form-button"
           type="button"
           class="btn btn-primary"
           (click)="save()"
-          [disabled]="!registerFormComponent?.myForm?.valid"
         >
           Registrar
         </button>
@@ -55,3 +55,5 @@
     </div>
   </div>
 </div>
+
+<!-- [disabled]="!registerFormComponent?.myForm?.valid" -->

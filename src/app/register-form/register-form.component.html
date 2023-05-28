@@ -1,4 +1,9 @@
-<form #myForm="ngForm" (ngSubmit)="submitForm()">
+<form
+  #myForm="ngForm"
+  (ngSubmit)="submitForm()"
+  class="needs-validation"
+  novalidate
+>
   <div class="p-3">
     <div class="row">
       <div class="mb-3 mb-md-5 p-1 col-md-6">
@@ -25,15 +30,18 @@
           type="text"
           class="form-control"
           aria-describedby="documentDescription"
+          
         />
-        <div
+        <div class="invalid-feedback">(*) Campo obligatorio</div>
+        <div class="valid-feedback">bien!</div>
+        <!-- <div
           *ngIf="
             myForm.controls['documento'].touched &&
             myForm.controls['documento'].errors
           "
         >
           (*) El campo es obligatorio
-        </div>
+        </div> -->
       </div>
 
       <div class="mb-3 p-1">
@@ -50,9 +58,7 @@
     </div>
 
     <div class="mb-3 row">
-      <label for="edad" class="col-md-2 col-form-label"
-        >Edad</label
-      >
+      <label for="edad" class="col-md-2 col-form-label">Edad</label>
       <div class="col-md-4">
         <input
           name="edad"
@@ -64,5 +70,10 @@
         />
       </div>
     </div>
+  </div>
+  <!-- TODO. Eliminar este div con este botón ya que es solo para probar que funcione el evento submit de
+ la librería bootstrat en el archivo bootstrap-validations.js -->
+  <div>
+    <button class="btn btn-primary" type="submit">Submit form</button>
   </div>
 </form>
