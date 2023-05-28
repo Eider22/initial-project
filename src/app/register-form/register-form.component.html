@@ -13,12 +13,16 @@
           id="tipoDocumento"
           [(ngModel)]="formModels.typeDocumentSelected"
           class="form-select"
+          #mySelect
+          (change)="changeSelect()"
         >
           <option value="0">Seleccione</option>
           <option *ngFor="let item of tiposDocumentos" value="{{ item.id }}">
             {{ item.nombre }}
           </option>
         </select>
+        <div class="invalid-feedback">(*) Campo obligatorio</div>
+        <div class="valid-feedback">Luce bien!</div>
       </div>
       <div class="mb-3 p-1 col-md-6">
         <label for="documento" class="form-label">Documento</label>
@@ -30,10 +34,9 @@
           type="text"
           class="form-control"
           aria-describedby="documentDescription"
-          
         />
         <div class="invalid-feedback">(*) Campo obligatorio</div>
-        <div class="valid-feedback">bien!</div>
+        <div class="valid-feedback">Luce bien!</div>
         <!-- <div
           *ngIf="
             myForm.controls['documento'].touched &&
@@ -54,6 +57,8 @@
           type="text"
           class="form-control"
         />
+        <div class="invalid-feedback">(*) Campo obligatorio</div>
+        <div class="valid-feedback">Luce bien!</div>
       </div>
     </div>
 
@@ -68,12 +73,9 @@
           type="number"
           class="form-control"
         />
+        <div class="invalid-feedback">(*) Campo obligatorio</div>
+        <div class="valid-feedback">Luce bien!</div>
       </div>
     </div>
-  </div>
-  <!-- TODO. Eliminar este div con este botón ya que es solo para probar que funcione el evento submit de
- la librería bootstrat en el archivo bootstrap-validations.js -->
-  <div>
-    <button class="btn btn-primary" type="submit">Submit form</button>
   </div>
 </form>

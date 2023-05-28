@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Estudiante } from "src/models/estuadiante";
 import { TipoDocumento } from "src/models/tipoDocumento";
@@ -15,6 +21,7 @@ export interface IEstudentRegisterForm {
 export class RegisterFormComponent {
   constructor() {}
   @ViewChild("myForm") myForm!: NgForm;
+  @ViewChild("mySelect") selectd!: ElementRef;
 
   estudianteModel: Estudiante = new Estudiante();
   /**Esta data probablemente será consumida de una api */
@@ -52,10 +59,16 @@ export class RegisterFormComponent {
           this.formModels.typeDocumentSelected.toString()
       );
 
-    if (!tipoDocumentoSeleccionado) {
+    this.changeSelect();
+
+    if (
+      !tipoDocumentoSeleccionado ||
+      this.estudianteModel.documento == "" ||
+      this.estudianteModel.nombres == "" ||
+      this.estudianteModel.edad == undefined
+    ) {
       /**TODO
        * Retornar información para mostrar error al cliente →  'Seleccione un tipo de documento'*/
-      alert("Seleccione un tipo de documento");
       return false;
     }
 
@@ -79,5 +92,13 @@ export class RegisterFormComponent {
     this.estudianteModel = new Estudiante();
     this.formModels.typeDocumentSelected = "0";
     this.myForm.controls["documento"].markAsUntouched();
+  }
+
+  changeSelect() {
+    if (this.selectd.nativeElement.value !== "0") {
+      this.selectd.nativeElement.setCustomValidity("");
+      return;
+    }
+    this.selectd.nativeElement.setCustomValidity("-");
   }
 }
