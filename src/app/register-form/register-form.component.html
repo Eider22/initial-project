@@ -1,5 +1,6 @@
 <form
   #myForm="ngForm"
+  [formGroup]="studentFormGroup"
   (ngSubmit)="submitForm()"
   class="needs-validation"
   novalidate
@@ -9,34 +10,53 @@
       <div class="mb-3 mb-md-5 p-1 col-md-6">
         <label for="tipoDocumento" class="form-label">Tipo documento</label>
         <select
-          name="tipoDocumento"
+          formControlName="tipoDocumento"
           id="tipoDocumento"
-          [(ngModel)]="formModels.typeDocumentSelected"
           class="form-select"
           #mySelect
-          (change)="changeSelect()"
         >
           <option value="0">Seleccione</option>
           <option *ngFor="let item of tiposDocumentos" value="{{ item.id }}">
             {{ item.nombre }}
           </option>
         </select>
-        <div class="invalid-feedback">(*) Campo obligatorio</div>
-        <div class="valid-feedback">Luce bien!</div>
+        <div
+          *ngIf="
+            (studentFormGroup
+              .get('tipoDocumento')
+              ?.hasError('selectTypeDocumentError') ||
+              studentFormGroup.get('tipoDocumento')?.hasError('required')) &&
+            studentFormGroup.get('tipoDocumento')?.touched
+          "
+        >
+          (*)Campo requerido
+        </div>
+        <!-- <div class="invalid-feedback">(*) Campo obligatorio</div>
+        <div class="valid-feedback">Luce bien!</div> -->
       </div>
       <div class="mb-3 p-1 col-md-6">
         <label for="documento" class="form-label">Documento</label>
         <input
-          name="documento"
+          formControlName="documento"
           id="documento"
           required
-          [(ngModel)]="estudianteModel.documento"
           type="text"
           class="form-control"
           aria-describedby="documentDescription"
         />
-        <div class="invalid-feedback">(*) Campo obligatorio</div>
-        <div class="valid-feedback">Luce bien!</div>
+        <!-- <div class="invalid-feedback" *ngIf="studentFormGroup.get('documento')?.hasError('required')">
+          (*) Campo requerido
+        </div> -->
+        <div
+          *ngIf="
+            studentFormGroup.get('documento')?.hasError('required') &&
+            studentFormGroup.get('documento')?.touched
+          "
+        >
+          (*)Campo requerido
+        </div>
+        <!-- <div class="invalid-feedback">(*) Campo obligatorio</div>
+        <div class="valid-feedback">Luce bien!</div> -->
         <!-- <div
           *ngIf="
             myForm.controls['documento'].touched &&
@@ -50,15 +70,22 @@
       <div class="mb-3 p-1">
         <label for="nombres" class="form-label">Nombres</label>
         <input
-          name="nombres"
+          formControlName="nombres"
           id="nombres"
           required
-          [(ngModel)]="estudianteModel.nombres"
           type="text"
           class="form-control"
         />
-        <div class="invalid-feedback">(*) Campo obligatorio</div>
-        <div class="valid-feedback">Luce bien!</div>
+        <div
+          *ngIf="
+            studentFormGroup.get('nombres')?.hasError('required') &&
+            studentFormGroup.get('nombres')?.touched
+          "
+        >
+          (*)Campo requerido
+        </div>
+        <!-- <div class="invalid-feedback">(*) Campo obligatorio</div>
+        <div class="valid-feedback">Luce bien!</div> -->
       </div>
     </div>
 
@@ -66,15 +93,22 @@
       <label for="edad" class="col-md-2 col-form-label">Edad</label>
       <div class="col-md-4">
         <input
-          name="edad"
+          formControlName="edad"
           id="edad"
           required
-          [(ngModel)]="estudianteModel.edad"
           type="number"
           class="form-control"
         />
-        <div class="invalid-feedback">(*) Campo obligatorio</div>
-        <div class="valid-feedback">Luce bien!</div>
+        <div
+          *ngIf="
+            studentFormGroup.get('edad')?.hasError('required') &&
+            studentFormGroup.get('edad')?.touched
+          "
+        >
+          (*)Campo requerido
+        </div>
+        <!-- <div class="invalid-feedback">(*) Campo obligatorio</div>
+        <div class="valid-feedback">Luce bien!</div> -->
       </div>
     </div>
   </div>

@@ -1,35 +1,27 @@
+import { Component, EventEmitter, Output, ViewChild } from "@angular/core";
 import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Output,
-  ViewChild,
-} from "@angular/core";
-import { NgForm } from "@angular/forms";
+  FormGroup,
+  FormBuilder,
+  Validators,
+  NgForm,
+  FormControl,
+} from "@angular/forms";
 import { Estudiante } from "src/models/estuadiante";
 import { TipoDocumento } from "src/models/tipoDocumento";
-
-export interface IEstudentRegisterForm {
-  typeDocumentSelected: string;
-}
-
 @Component({
   selector: "app-register-form",
   templateUrl: "./register-form.component.html",
   styleUrls: ["./register-form.component.css"],
 })
 export class RegisterFormComponent {
-  constructor() {}
+  constructor(private fb: FormBuilder) {}
+  /**Ya no se necesita , se puede borrar */
   @ViewChild("myForm") myForm!: NgForm;
-  @ViewChild("mySelect") selectd!: ElementRef;
 
+  studentFormGroup!: FormGroup;
   estudianteModel: Estudiante = new Estudiante();
   /**Esta data probablemente será consumida de una api */
   tiposDocumentos: Array<TipoDocumento> = [];
-
-  formModels: IEstudentRegisterForm = {
-    typeDocumentSelected: "0",
-  };
 
   @Output()
   estudianteRegistrado: EventEmitter<Estudiante> =
@@ -37,45 +29,60 @@ export class RegisterFormComponent {
 
   ngOnInit(): void {
     this.getData();
+
+    this.studentFormGroup = this.fb.group({
+      tipoDocumento: ["0", [Validators.required, this.typeDocumentValidation]],
+      documento: ["", [Validators.required]],
+      nombres: ["", [Validators.required]],
+      edad: ["", [Validators.required]],
+    });
   }
 
   submitForm() {
-    console.log("this.myForm")
-    console.log(this.myForm)
+    console.log("this.myForm → ", this.myForm);
     this.registrarEstudiante();
-    // this.myForm.controls["documento"].markAsUntouched();
   }
 
   registrarEstudiante() {
     if (!this.validateData()) return;
-    /**save student → api */
+    /**TODO:save student → api */
     this.updateTable();
     this.cleanForm();
   }
 
   validateData(): boolean {
+    // console.log("--------", this.studentFormGroup.controls["tipoDocumento"])
+    // this.typeDocumentValidation(this.studentFormGroup.controls["tipoDocumento"] as FormControl);
+
     const tipoDocumentoSeleccionado: TipoDocumento | undefined =
       this.tiposDocumentos.find(
         (documento) =>
           documento.id.toString() ===
-          this.formModels.typeDocumentSelected.toString()
+          this.studentFormGroup.controls["tipoDocumento"].value.toString()
       );
-
-    this.changeSelect();
 
     if (
       !tipoDocumentoSeleccionado ||
-      this.estudianteModel.documento == "" ||
-      this.estudianteModel.nombres == "" ||
-      this.estudianteModel.edad == undefined
+      this.studentFormGroup.controls["documento"].value == "" ||
+      this.studentFormGroup.controls["nombres"].value == "" ||
+      this.studentFormGroup.controls["edad"].value == ""
     ) {
       /**TODO
        * Retornar información para mostrar error al cliente →  'Seleccione un tipo de documento'*/
       return false;
     }
+    this.buildStudent(tipoDocumentoSeleccionado);
 
-    this.estudianteModel.tipoDocumento = tipoDocumentoSeleccionado;
     return true;
+  }
+
+  buildStudent(tipoDocumentoSeleccionado: TipoDocumento) {
+    this.estudianteModel.tipoDocumento = tipoDocumentoSeleccionado;
+    this.estudianteModel.documento =
+      this.studentFormGroup.controls["documento"].value;
+    this.estudianteModel.nombres =
+      this.studentFormGroup.controls["nombres"].value;
+    this.estudianteModel.edad = this.studentFormGroup.controls["edad"].value;
   }
 
   getData() {
@@ -92,15 +99,15 @@ export class RegisterFormComponent {
 
   cleanForm() {
     this.estudianteModel = new Estudiante();
-    this.formModels.typeDocumentSelected = "0";
-    // this.myForm.controls["documento"].markAsUntouched();
+    this.studentFormGroup.controls["tipoDocumento"].setValue("0");
+    this.studentFormGroup.controls["documento"].setValue("");
+    this.studentFormGroup.controls["nombres"].setValue("");
+    this.studentFormGroup.controls["edad"].setValue("");
   }
 
-  changeSelect() {
-    if (this.selectd.nativeElement.value !== "0") {
-      this.selectd.nativeElement.setCustomValidity("");
-      return;
-    }
-    this.selectd.nativeElement.setCustomValidity("-");
+  typeDocumentValidation(control: FormControl) {
+    return control.value !== "0"
+      ? null
+      : { selectTypeDocumentError: "Debe seleccionar un tipo de documento" };
   }
 }

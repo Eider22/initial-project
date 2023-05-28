@@ -7,7 +7,7 @@ import { FormularioComponent } from './formulario/formulario.component';
 import { EncabezadoComponent } from './encabezado/encabezado.component';
 import { FooterComponent } from './footer/footer.component';
 import { CuerpoComponent } from './cuerpo/cuerpo.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ModalComponent } from './modal/modal.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
@@ -30,7 +30,8 @@ import { StudentPageComponent } from './pages/student-page/student-page.componen
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

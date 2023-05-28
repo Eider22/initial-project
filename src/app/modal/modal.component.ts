@@ -22,7 +22,7 @@ export class ModalComponent implements AfterViewInit {
   estudianteRegistrado: EventEmitter<Estudiante> =
     new EventEmitter<Estudiante>();
   @ContentChild(RegisterFormComponent)
-  registerFormComponent: RegisterFormComponent = new RegisterFormComponent();
+  registerFormComponent!: RegisterFormComponent;
 
   save() {
     this.registerFormComponent.submitForm();
